@@ -1,0 +1,19 @@
+# Build docker image and push to docker hub
+name: Push Docker
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: If commit message contains [mpi] and tag is not set, set tag to mpi
+        run: |
+          if [[ ${{ github.event.head_commit.message }} == *"[mpi]"* ]] && [[ -z "${{ github.event.release.tag_name }}" ]]; then
+            echo "MPI_TAG=mpi" >> $GITHUB_ENV
+          fi
+      - name: Build common image
+        run: make mpi

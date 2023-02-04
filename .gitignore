@@ -2,6 +2,7 @@ env.d/*
 images/
 .local/
 .vscode/
+.idea/
 *.run
 *.simg
 *.sif
