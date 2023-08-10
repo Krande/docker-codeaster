@@ -241,3 +241,14 @@ RUN ln -s /usr/bin/python3 /usr/local/bin/python && \
 
 USER aster
 WORKDIR /work/aster
+
+# Test that the latest version is present
+ENV LD_LIBRARY_PATH=/aster/aster/lib64/aster:${LD_LIBRARY_PATH}:.
+ENV PYTHONPATH=/aster/aster/lib64/aster:${PYTHONPATH}:.
+
+ENV ASTER_LIBDIR=/aster/aster/lib64/aster
+ENV ASTER_DATADIR=/aster/aster/share/aster
+ENV ASTER_LOCALEDIR=/aster/aster/share/locale/aster
+ENV ASTER_ELEMENTSDIR=/aster/aster/lib64/aster
+
+RUN python -c "import code_aster; code_aster.init()"
